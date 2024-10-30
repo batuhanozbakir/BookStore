@@ -20,6 +20,7 @@ namespace BookStore.WebApp.Context
             
         }
 
+        public DbSet<Publisher> Publishers { get; set; }
         public DbSet<City> Cities { get; set; }
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

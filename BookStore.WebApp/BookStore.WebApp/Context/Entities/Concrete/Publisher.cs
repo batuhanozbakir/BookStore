@@ -2,9 +2,11 @@
 
 namespace BookStore.WebApp.Context.Entities.Concrete
 {
-    public class City : BaseEntity
+    public class Publisher : BaseEntity
     {
         public string Name { get; set; }
-        public virtual ICollection<Publisher> Publishers { get; set; }
+        public string Adress { get; set; }
+        public int CityId { get; set; }
+        public City City { get; set; }
     }
 }
