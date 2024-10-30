@@ -8,12 +8,6 @@ namespace BookStore.WebApp.Controllers
 {
     public class CityController : Controller
     {
-        //private readonly IConfiguration _configuration;
-        //public CityController(IConfiguration configuration)
-        //{
-        //    _configuration = configuration;
-        //}
-
         private readonly BookStoreDbContext _dbContext;
         private MapperConfiguration _mapConfig;
         private IMapper _mapper;
@@ -35,7 +29,7 @@ namespace BookStore.WebApp.Controllers
             return View(model);
         }
 
-        public IActionResult New()
+        public IActionResult Add()
         {
             CityViewModel model = new CityViewModel();
             
@@ -48,11 +42,10 @@ namespace BookStore.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Add(CityViewModel model)
         {
-            //var dbContextOptionsBuilder = new DbContextOptionsBuilder<BookStoreDbContext>();
-
-            //dbContextOptionsBuilder.UseSqlServer();
-
-            //BookStoreDbContext bookStoreDbContext = new BookStoreDbContext();
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
 
             City city = _mapper.Map<City>(model);
 
@@ -88,9 +81,6 @@ namespace BookStore.WebApp.Controllers
     
         public IActionResult Remove(int id)
         {
-
-
-
           City city = _dbContext.Cities.Where(c => c.Id == id && c.IsDeleted == false).FirstOrDefault();
 
             if(city != null)
@@ -102,9 +92,6 @@ namespace BookStore.WebApp.Controllers
 
                 _dbContext.SaveChanges();
             }
-
-           
-
             return RedirectToAction(nameof(Index));
         }
 
